@@ -18,10 +18,16 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.lucero_albor.snackb64980ee74d6451fa1008b209a4ade43"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "9d12ca28-36f3-4350-bb2b-4c45518a75fa"
+      }
     }
   }
 }
