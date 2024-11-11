@@ -299,19 +299,36 @@ function CatalogoPro({ navigation }) {
 function InsertarProductos({ navigation }) {
 
   const [nombre, setNombre] = useState('');
-  const [pass, setPass] = useState('');
-  const [correo, setCorreo] = useState('');
+  const [descripcion, setDescripcion] = useState('');
+  const [precio, setPrecio] = useState('');
 
   return (
-    
     <ImageBackground source={background2} style={styles.image}>
       <SafeAreaView style={styles.container}>
-        <Text style={styles.paragraph1}>Conoce nuestros productos</Text>
-        <FlatList
-          data={DATA}
-          renderItem={productos}
-          keyExtractor={(item) => item.id}
-        />
+      <Text style={styles.paragraph1}>Ingresa algun productos</Text>
+      <TextInput
+        style={styles.input}
+        placeholder="Nombre"
+        value={nombre}
+        onChangeText={setNombre}
+      />
+      <TextInput
+        style={styles.input}
+        placeholder="Descripción"
+        value={descripcion}
+        onChangeText={setDescripcion}
+        secureTextEntry
+      />
+
+  <TextInput
+        style={styles.input}
+        placeholder="Precio"
+        value={precio}
+        onChangeText={setPrecio}
+        secureTextEntry
+      />
+
+      <Button title="registrar" onPress={handleRegistrar} />
       </SafeAreaView>
     </ImageBackground>
   );
