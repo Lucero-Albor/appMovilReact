@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
-import {ImageBackground, Text, SafeAreaView, Button, StyleSheet, Image, View, Alert, FlatList, Animated} from 'react-native';
+import {ImageBackground, Text, TextInput, SafeAreaView, Button, StyleSheet, Image, View, Alert, FlatList, Animated} from 'react-native';
 import { Card } from 'react-native-paper';
 //Para poder pasar de ventana, se importan estas dos librerías, las de Navigation
 import { NavigationContainer } from '@react-navigation/native';
@@ -7,6 +7,86 @@ import { createStackNavigator } from '@react-navigation/stack';
 //fondos de pantalla
 import background1 from './assets/fondoApp.png';
 import background2 from './assets/fondoApp2.png';
+
+// Pantalla de inicio de sesión
+function InicioSesion({ navigation }) {
+  const [nombre, setNombre] = useState('');
+  const [pass, setPass] = useState('');
+
+  const handleLogin = () => {
+    // Validación simple del usuario y contraseña
+    if (nombre === 'nombre' && pass === 'contraseña') {
+      Alert.alert('Inicio de sesión exitoso');
+      navigation.replace('Chrisalis Design'); // Navegar a la pantalla principal
+    } else {
+      Alert.alert('Usuario o contraseña incorrectos');
+    }
+  };
+
+  return (
+    <View style={styles.loginContainer}>
+      <Text style={styles.loginTitle}>Iniciar Sesión</Text>
+      <TextInput
+        style={styles.input}
+        placeholder="Nombre"
+        value={nombre}
+        onChangeText={setNombre}
+      />
+      <TextInput
+        style={styles.input}
+        placeholder="Contraseña"
+        value={pass}
+        onChangeText={setPass}
+        secureTextEntry
+      />
+      <Button title="Ingresar" onPress={handleLogin} />
+      <Button
+        title="Crear una cuenta"
+        onPress={() => navigation.navigate('Registro')}
+      />
+    </View>
+  );
+}
+
+function registroUsuario({ navigation }) {
+  const [nombre, setNombre] = useState('');
+  const [pass, setPass] = useState('');
+  const [correo, setCorreo] = useState('');
+
+  const handleRegister = () => {
+    // Lógica de registro, como guardar las credenciales
+    Alert.alert('Registro exitoso');
+    navigation.goBack(); // Vuelve a la pantalla de inicio de sesión después de registrarse
+  };
+
+  return (
+    <View style={styles.registerContainer}>
+      <Text style={styles.registerTitle}>Registro de Usuario</Text>
+      <TextInput
+        style={styles.input}
+        placeholder="Nombre"
+        value={nombre}
+        onChangeText={setNombre}
+      />
+      <TextInput
+        style={styles.input}
+        placeholder="Correo"
+        value={correo}
+        onChangeText={setCorreo}
+        secureTextEntry
+      />
+      <TextInput
+        style={styles.input}
+        placeholder="Contraseña"
+        value={pass}
+        onChangeText={setPass}
+        secureTextEntry
+      />
+      
+      <Button title="Registrarse" onPress={handleRegister} />
+    </View>
+  );
+}
 
 const DATA = [
   {
@@ -216,13 +296,34 @@ function CatalogoPro({ navigation }) {
   );
 }
 
+function InsertarProductos({ navigation }) {
+
+  const [nombre, setNombre] = useState('');
+  const [pass, setPass] = useState('');
+  const [correo, setCorreo] = useState('');
+
+  return (
+    
+    <ImageBackground source={background2} style={styles.image}>
+      <SafeAreaView style={styles.container}>
+        <Text style={styles.paragraph1}>Conoce nuestros productos</Text>
+        <FlatList
+          data={DATA}
+          renderItem={productos}
+          keyExtractor={(item) => item.id}
+        />
+      </SafeAreaView>
+    </ImageBackground>
+  );
+}
+
 //Aquí se crea el como se van a estar direccionando las funciones gracias a Navigator
 const Stack = createStackNavigator();
 
 export default function App() {
   useEffect(() => {
     const timer = setTimeout(() => {
-      Alert.alert( '¡Bienvenido! :D', 'Visite nuestros productos');
+      Alert.alert( '¡Bienvenido AAAAAAAAAAAAAH! :D', 'Visite nuestros productos');
     }, 5000);
     return () => clearTimeout(timer);
   }, []);
@@ -230,10 +331,13 @@ export default function App() {
   return (
     <NavigationContainer>
       <ImageBackground source={background1} style={styles.image}>
-          <Stack.Navigator initialRouteName="Inicio">
+          <Stack.Navigator initialRouteName="Inicio de Sesión">
+          <Stack.Screen name="Inicio de Sesión" component={InicioSesion} />
+          <Stack.Screen name="Registro" component={registroUsuario} />
             <Stack.Screen name="Chrisalis Design" component={Principal} />
             <Stack.Screen name="Información" component={Informacion} />
             <Stack.Screen name="Catálogo" component={CatalogoPro} />
+            <Stack.Screen name="Insertar producto" component={InsertarProductos} />
         </Stack.Navigator>
       </ImageBackground>
     </NavigationContainer>
@@ -331,5 +435,25 @@ const styles = StyleSheet.create({
     width: 20,
     height: 20,
     backgroundColor: 'yellow',
+  },
+  loginContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    padding: 20,
+    backgroundColor: '#fff',
+  },
+  loginTitle: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 20,
+    textAlign: 'center',
+  },
+  input: {
+    height: 40,
+    borderColor: '#ccc',
+    borderWidth: 1,
+    marginBottom: 20,
+    paddingHorizontal: 10,
+    borderRadius: 5,
   },
 });
