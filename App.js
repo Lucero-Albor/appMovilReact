@@ -15,7 +15,7 @@ function InicioSesion({ navigation }) {
 
   const handleLogin = () => {
     // Validación simple del usuario y contraseña
-    if (nombre === 'nombre' && pass === 'contraseña') {
+    if (nombre === 'nombre' && pass === '123') {
       Alert.alert('Inicio de sesión exitoso');
       navigation.replace('Chrisalis Design'); // Navegar a la pantalla principal
     } else {
@@ -54,9 +54,8 @@ function registroUsuario({ navigation }) {
   const [correo, setCorreo] = useState('');
 
   const handleRegister = () => {
-    // Lógica de registro, como guardar las credenciales
     Alert.alert('Registro exitoso');
-    navigation.goBack(); // Vuelve a la pantalla de inicio de sesión después de registrarse
+    navigation.goBack();
   };
 
   return (
@@ -257,6 +256,11 @@ function Principal({ navigation }) {
             color="#020202" 
             onPress={() => navigation.navigate('Catálogo')} 
           />
+           <Button 
+            title="Insertar Producto" 
+            color="#020202" 
+            onPress={() => navigation.navigate('Insertar producto')} 
+          />
 
           <Text>{texto}</Text>
           <Text>{info}</Text>
@@ -282,6 +286,7 @@ function Informacion({ navigation }){
 }
 
 function CatalogoPro({ navigation }) {
+
   return (
     <ImageBackground source={background2} style={styles.image}>
       <SafeAreaView style={styles.container}>
@@ -296,15 +301,21 @@ function CatalogoPro({ navigation }) {
   );
 }
 
-function InsertarProductos({ navigation }) {
+function InsertarProducto({ navigation }) {
 
   const [nombre, setNombre] = useState('');
   const [descripcion, setDescripcion] = useState('');
   const [precio, setPrecio] = useState('');
 
+  const handleRegistrar = () => {
+    Alert.alert('Producto registrado:', `Nombre: ${nombre}, Descripción: ${descripcion}, Precio: ${precio}`);
+  };
+
   return (
     <ImageBackground source={background2} style={styles.image}>
       <SafeAreaView style={styles.container}>
+        <Text style={styles.paragraph1}>Conoce nuestros productos</Text>
+
       <Text style={styles.paragraph1}>Ingresa algun productos</Text>
       <TextInput
         style={styles.input}
@@ -354,7 +365,8 @@ export default function App() {
             <Stack.Screen name="Chrisalis Design" component={Principal} />
             <Stack.Screen name="Información" component={Informacion} />
             <Stack.Screen name="Catálogo" component={CatalogoPro} />
-            <Stack.Screen name="Insertar producto" component={InsertarProductos} />
+            <Stack.Screen name="Insertar producto" component={InsertarProducto} />
+            
         </Stack.Navigator>
       </ImageBackground>
     </NavigationContainer>
